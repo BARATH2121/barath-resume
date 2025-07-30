@@ -7,56 +7,54 @@
     <meta name="description" content="Barath M - Computer Science Graduate, Software Installation Expert, Cloud Technology Enthusiast from Coimbatore">
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/three@0.170.0/build/three.min.js"></script>
 </head>
 <body>
+    <!-- 3D Canvas Background -->
+    <canvas id="threejs-canvas" class="threejs-background"></canvas>
+    
     <!-- Loading Screen -->
-    <div class="loading-screen">
-        <div class="loader">
-            <div class="loader-inner">
-                <div class="loader-line-wrap">
-                    <div class="loader-line"></div>
-                </div>
-                <div class="loader-line-wrap">
-                    <div class="loader-line"></div>
-                </div>
-                <div class="loader-line-wrap">
-                    <div class="loader-line"></div>
-                </div>
-                <div class="loader-line-wrap">
-                    <div class="loader-line"></div>
-                </div>
-                <div class="loader-line-wrap">
-                    <div class="loader-line"></div>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo-3d">
+                    <span class="logo-text">BARATH</span>
+                    <span class="logo-dot">.</span>
                 </div>
             </div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+                <div class="progress-text">Loading 3D Environment...</div>
+            </div>
         </div>
-        <p>Loading Portfolio...</p>
     </div>
 
     <!-- Header -->
-    <header class="header">
+    <header class="header glass-morphism" id="header">
         <nav class="navbar">
             <div class="nav-container">
                 <div class="logo">
-                    <h2>BARATH<span class="logo-accent">.</span></h2>
+                    <h2 class="logo-3d">BARATH<span class="logo-accent">.</span></h2>
                 </div>
-                <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#experience" class="nav-link">Experience</a></li>
-                    <li><a href="#skills" class="nav-link">Skills</a></li>
-                    <li><a href="#education" class="nav-link">Education</a></li>
-                    <li><a href="#certifications" class="nav-link">Certifications</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active" data-text="Home">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-text="About">About</a></li>
+                    <li><a href="#experience" class="nav-link" data-text="Experience">Experience</a></li>
+                    <li><a href="#skills" class="nav-link" data-text="Skills">Skills</a></li>
+                    <li><a href="#education" class="nav-link" data-text="Education">Education</a></li>
+                    <li><a href="#certifications" class="nav-link" data-text="Certifications">Certifications</a></li>
+                    <li><a href="#contact" class="nav-link" data-text="Contact">Contact</a></li>
                 </ul>
-                <div class="theme-toggle">
-                    <i class="fas fa-moon" id="theme-icon"></i>
-                </div>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div class="nav-controls">
+                    <div class="theme-toggle glass-morphism" id="themeToggle">
+                        <i class="fas fa-palette theme-icon"></i>
+                    </div>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -64,95 +62,169 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-bg">
-            <div class="hero-particles"></div>
-        </div>
         <div class="hero-content">
             <div class="hero-text">
                 <div class="hero-greeting">
-                    <span class="greeting-text">👋 Hello, I'm</span>
+                    <div class="greeting-badge glass-morphism">
+                        <span class="greeting-icon">👋</span>
+                        <span class="greeting-text">Hello World!</span>
+                    </div>
                 </div>
+                
                 <h1 class="hero-title">
-                    <span class="name-text">BARATH M</span>
-                    <span class="cursor">|</span>
+                    <div class="title-line">
+                        <span class="word" data-text="I'm">I'm</span>
+                        <span class="word highlight" data-text="BARATH">BARATH</span>
+                    </div>
+                    <div class="title-line">
+                        <span class="word" data-text="Computer">Computer</span>
+                        <span class="word" data-text="Science">Science</span>
+                    </div>
+                    <div class="title-line">
+                        <span class="word accent" data-text="Professional">Professional</span>
+                    </div>
                 </h1>
+
                 <div class="hero-subtitle">
-                    <span class="role-text"></span>
+                    <div class="role-container">
+                        <span class="role-prefix">Specialized in</span>
+                        <span class="role-text" id="roleText"></span>
+                        <span class="cursor-blink">|</span>
+                    </div>
                 </div>
+
                 <p class="hero-description">
-                    Passionate Computer Science student specializing in cloud technologies, 
-                    system installations, and modern billing solutions. Based in Coimbatore, 
-                    ready to innovate in the tech industry.
+                    Passionate about <span class="highlight-text">cloud technologies</span>, 
+                    <span class="highlight-text">system administration</span>, and 
+                    <span class="highlight-text">innovative solutions</span>. 
+                    Based in Coimbatore, ready to transform ideas into reality.
                 </p>
-                <div class="hero-stats">
+
+                <div class="hero-stats glass-morphism">
                     <div class="stat-item">
-                        <span class="stat-number">2+</span>
-                        <span class="stat-label">Years Experience</span>
+                        <div class="stat-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-number" data-count="2">0</span><span class="stat-plus">+</span>
+                            <span class="stat-label">Years Coding</span>
+                        </div>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">6+</span>
-                        <span class="stat-label">Certifications</span>
+                        <div class="stat-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-number" data-count="6">0</span><span class="stat-plus">+</span>
+                            <span class="stat-label">Certifications</span>
+                        </div>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Dedication</span>
+                        <div class="stat-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-number" data-count="50">0</span><span class="stat-plus">+</span>
+                            <span class="stat-label">Projects Done</span>
+                        </div>
                     </div>
                 </div>
+
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">
-                        <span>Let's Connect</span>
-                        <i class="fas fa-arrow-right"></i>
+                    <a href="#contact" class="btn btn-primary btn-3d">
+                        <span class="btn-text">Let's Connect</span>
+                        <div class="btn-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="btn-particles"></div>
                     </a>
-                    <a href="resume.pdf" class="btn btn-secondary" download>
-                        <i class="fas fa-download"></i>
-                        <span>Download CV</span>
+                    <a href="#" class="btn btn-secondary btn-3d" id="downloadCV">
+                        <span class="btn-text">Download CV</span>
+                        <div class="btn-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
                     </a>
                 </div>
+
                 <div class="social-links">
-                    <a href="https://www.linkedin.com/in/barath-m-7044502a3" target="_blank" class="social-link linkedin">
+                    <a href="https://www.linkedin.com/in/barath-m-7044502a3" target="_blank" class="social-link glass-morphism" data-social="linkedin">
                         <i class="fab fa-linkedin-in"></i>
-                        <span class="tooltip">LinkedIn</span>
+                        <span class="social-tooltip">LinkedIn</span>
                     </a>
-                    <a href="https://www.instagram.com/2121bara" target="_blank" class="social-link instagram">
+                    <a href="https://www.instagram.com/2121bara" target="_blank" class="social-link glass-morphism" data-social="instagram">
                         <i class="fab fa-instagram"></i>
-                        <span class="tooltip">Instagram</span>
+                        <span class="social-tooltip">Instagram</span>
                     </a>
-                    <a href="https://github.com/barath2121" target="_blank" class="social-link github">
+                    <a href="https://github.com/barath2121" target="_blank" class="social-link glass-morphism" data-social="github">
                         <i class="fab fa-github"></i>
-                        <span class="tooltip">GitHub</span>
+                        <span class="social-tooltip">GitHub</span>
                     </a>
-                    <a href="mailto:mbarath2121@gmail.com" class="social-link email">
+                    <a href="mailto:mbarath2121@gmail.com" class="social-link glass-morphism" data-social="email">
                         <i class="fas fa-envelope"></i>
-                        <span class="tooltip">Email</span>
+                        <span class="social-tooltip">Email</span>
+                    </a>
+                    <a href="tel:+919789223360" class="social-link glass-morphism" data-social="phone">
+                        <i class="fas fa-phone"></i>
+                        <span class="social-tooltip">Phone</span>
                     </a>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="profile-container">
-                    <div class="profile-bg-circle"></div>
-                    <div class="profile-card">
-                        <img src="profile-photo.jpg" alt="Barath M - Professional Photo" class="profile-img">
-                        <div class="profile-status">
-                            <div class="status-dot"></div>
-                            <span>Available for Work</span>
+
+            <div class="hero-visual">
+                <div class="profile-3d-container">
+                    <!-- 3D Profile Card -->
+                    <div class="profile-card-3d glass-morphism">
+                        <div class="card-glow"></div>
+                        <div class="profile-image-container">
+                            <div class="image-frame">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="Barath M - Professional Photo" class="profile-img">
+                                <div class="image-overlay"></div>
+                            </div>
+                            <div class="status-indicator">
+                                <div class="status-dot"></div>
+                                <span>Available for Work</span>
+                            </div>
+                        </div>
+                        <div class="profile-info">
+                            <h3>Barath M</h3>
+                            <p>Computer Science Professional</p>
+                            <div class="profile-tags">
+                                <span class="tag">Cloud Expert</span>
+                                <span class="tag">System Admin</span>
+                                <span class="tag">Tech Enthusiast</span>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Floating Elements -->
                     <div class="floating-elements">
-                        <div class="floating-icon" style="--delay: 0s">💻</div>
-                        <div class="floating-icon" style="--delay: 1s">☁️</div>
-                        <div class="floating-icon" style="--delay: 2s">⚡</div>
-                        <div class="floating-icon" style="--delay: 3s">🚀</div>
+                        <div class="floating-tech" style="--delay: 0s; --x: -80px; --y: -60px;">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <div class="floating-tech" style="--delay: 1s; --x: 90px; --y: -80px;">
+                            <i class="fab fa-aws"></i>
+                        </div>
+                        <div class="floating-tech" style="--delay: 2s; --x: -70px; --y: 80px;">
+                            <i class="fab fa-microsoft"></i>
+                        </div>
+                        <div class="floating-tech" style="--delay: 3s; --x: 100px; --y: 70px;">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="floating-tech" style="--delay: 4s; --x: 0px; --y: -120px;">
+                            <i class="fas fa-cloud"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Scroll Indicator -->
         <div class="scroll-indicator">
+            <div class="scroll-text">Explore More</div>
             <div class="scroll-arrow">
-                <span></span>
-                <span></span>
-                <span></span>
+                <div class="arrow-line"></div>
+                <div class="arrow-head"></div>
             </div>
-            <p>Scroll Down</p>
         </div>
     </section>
 
@@ -160,104 +232,114 @@
     <section id="about" class="about">
         <div class="container">
             <div class="section-header">
-                <span class="section-subtitle">Get to know me</span>
-                <h2 class="section-title">About Me</h2>
+                <div class="section-number">01</div>
+                <div class="section-content">
+                    <span class="section-subtitle">Get to know me</span>
+                    <h2 class="section-title">About Me</h2>
+                </div>
             </div>
-            <div class="about-content">
+
+            <div class="about-grid">
                 <div class="about-text">
-                    <div class="about-intro">
-                        <h3>Passionate Tech Enthusiast from Coimbatore</h3>
+                    <div class="text-content glass-morphism">
+                        <h3>Passionate Developer from <span class="location-highlight">Coimbatore</span></h3>
                         <p class="lead">
-                            I'm a dedicated Computer Science student currently pursuing my B.Sc in Computer Science 
-                            with Cognitive Systems at DR. N. G. P. ARTS AND SCIENCE COLLEGE. My journey in technology 
-                            has been driven by curiosity and a genuine passion for solving problems through innovative solutions.
-                        </p>
-                    </div>
-                    
-                    <div class="about-details">
-                        <p>
-                            My professional experience spans from technical support at Orange Computer Sales & Service, 
-                            where I mastered operating system installations and customer service, to my current role 
-                            as a Billing Expert at D Mart, where I manage modern POS systems and ensure seamless customer experiences.
+                            I'm a dedicated Computer Science student pursuing B.Sc in Computer Science 
+                            with Cognitive Systems at DR. N. G. P. ARTS AND SCIENCE COLLEGE. 
+                            My journey in technology is driven by curiosity and passion for innovation.
                         </p>
                         
-                        <p>
-                            What sets me apart is my commitment to continuous learning. I've earned multiple certifications 
-                            in cloud computing, cybersecurity, and have even contributed to academic literature with a 
-                            published chapter on Cloud and Virtualization technologies.
-                        </p>
-                        
-                        <p>
-                            Being fluent in both English and Tamil allows me to connect with diverse teams and clients, 
-                            making me an effective communicator in multicultural environments.
-                        </p>
-                    </div>
-                    
-                    <div class="about-highlights">
-                        <div class="highlight-item">
-                            <i class="fas fa-graduation-cap"></i>
-                            <div>
-                                <h4>Education</h4>
-                                <p>B.Sc Computer Science with Cognitive Systems</p>
+                        <div class="experience-highlight">
+                            <div class="exp-item">
+                                <div class="exp-icon">
+                                    <i class="fas fa-store"></i>
+                                </div>
+                                <div class="exp-content">
+                                    <h4>Current Role</h4>
+                                    <p>Billing Expert at D Mart</p>
+                                    <span>2024 - Present</span>
+                                </div>
+                            </div>
+                            
+                            <div class="exp-item">
+                                <div class="exp-icon">
+                                    <i class="fas fa-desktop"></i>
+                                </div>
+                                <div class="exp-content">
+                                    <h4>Previous Role</h4>
+                                    <p>Technical Support at Orange Computer</p>
+                                    <span>2022 - 2024</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h4>Location</h4>
-                                <p>Coimbatore, Tamil Nadu, India</p>
-                            </div>
-                        </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-language"></i>
-                            <div>
-                                <h4>Languages</h4>
-                                <p>English & Tamil (Fluent)</p>
-                            </div>
-                        </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-heart"></i>
-                            <div>
-                                <h4>Interests</h4>
-                                <p>Cloud Tech, AI, System Administration</p>
+
+                        <div class="skills-preview">
+                            <h4>Core Technologies</h4>
+                            <div class="tech-stack">
+                                <span class="tech-item">Cloud Computing</span>
+                                <span class="tech-item">System Administration</span>
+                                <span class="tech-item">POS Systems</span>
+                                <span class="tech-item">Technical Support</span>
+                                <span class="tech-item">Network Security</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="about-visual">
-                    <div class="experience-card">
-                        <div class="card-header">
-                            <h3>Professional Journey</h3>
+                    <div class="info-cards">
+                        <div class="info-card glass-morphism">
+                            <div class="card-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h4>Education</h4>
+                            <p>B.Sc Computer Science</p>
+                            <small>CGPA: 6.7</small>
                         </div>
-                        <div class="experience-timeline">
-                            <div class="timeline-point current">
-                                <div class="point-info">
-                                    <span class="year">2024 - Present</span>
-                                    <h4>Billing Expert</h4>
-                                    <p>D Mart</p>
-                                </div>
+                        
+                        <div class="info-card glass-morphism">
+                            <div class="card-icon">
+                                <i class="fas fa-map-marker-alt"></i>
                             </div>
-                            <div class="timeline-point">
-                                <div class="point-info">
-                                    <span class="year">2022 - 2024</span>
-                                    <h4>Technical Support</h4>
-                                    <p>Orange Computer Sales</p>
-                                </div>
+                            <h4>Location</h4>
+                            <p>Coimbatore, TN</p>
+                            <small>Open to remote work</small>
+                        </div>
+                        
+                        <div class="info-card glass-morphism">
+                            <div class="card-icon">
+                                <i class="fas fa-language"></i>
                             </div>
+                            <h4>Languages</h4>
+                            <p>English & Tamil</p>
+                            <small>Fluent in both</small>
+                        </div>
+                        
+                        <div class="info-card glass-morphism">
+                            <div class="card-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h4>Passion</h4>
+                            <p>Technology & AI</p>
+                            <small>Continuous learner</small>
                         </div>
                     </div>
-                    
-                    <div class="qr-showcase">
-                        <h4>Quick Connect</h4>
-                        <div class="qr-cards">
-                            <div class="qr-card">
-                                <img src="qr-contact.jpg" alt="Contact QR Code">
-                                <span>Contact Info</span>
+
+                    <!-- Contact Card -->
+                    <div class="contact-card glass-morphism">
+                        <h4><i class="fas fa-address-card"></i> Contact Information</h4>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+91 9789223360</span>
                             </div>
-                            <div class="qr-card">
-                                <img src="qr-resume.jpg" alt="Resume QR Code">
-                                <span>Resume</span>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>mbarath2121@gmail.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fab fa-linkedin"></i>
+                                <span>linkedin.com/in/barath-m-7044502a3</span>
                             </div>
                         </div>
                     </div>
@@ -270,93 +352,74 @@
     <section id="experience" class="experience">
         <div class="container">
             <div class="section-header">
-                <span class="section-subtitle">My journey</span>
-                <h2 class="section-title">Work Experience</h2>
+                <div class="section-number">02</div>
+                <div class="section-content">
+                    <span class="section-subtitle">My journey</span>
+                    <h2 class="section-title">Work Experience</h2>
+                </div>
             </div>
-            <div class="experience-content">
-                <div class="experience-timeline">
-                    <div class="timeline-item active">
-                        <div class="timeline-marker">
-                            <div class="marker-content">
-                                <i class="fas fa-cash-register"></i>
+
+            <div class="experience-timeline">
+                <div class="timeline-item current">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content glass-morphism">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="job-info">
+                                <h3>Billing Expert</h3>
+                                <h4>D Mart</h4>
+                                <span class="job-period">2024 - Present</span>
+                                <span class="job-type">Full-time</span>
                             </div>
                         </div>
-                        <div class="timeline-content">
-                            <div class="content-header">
-                                <span class="timeline-date">2024 - Present</span>
-                                <div class="company-badge current">Current Position</div>
-                            </div>
-                            <h3>Billing Expert</h3>
-                            <h4>D Mart</h4>
-                            <p class="role-description">
-                                Leading point-of-sale operations and customer service excellence in a fast-paced retail environment.
-                            </p>
-                            <ul class="achievements">
-                                <li>
-                                    <i class="fas fa-check-circle"></i>
-                                    Efficiently manage and operate advanced POS systems
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle"></i>
-                                    Deliver exceptional customer service during high-volume transactions
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle"></i>
-                                    Maintain accurate transaction records and inventory documentation
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle"></i>
-                                    Collaborate effectively across departments for operational efficiency
-                                </li>
-                            </ul>
-                            <div class="skills-used">
-                                <span class="skill-tag">POS Systems</span>
-                                <span class="skill-tag">Customer Service</span>
-                                <span class="skill-tag">Data Management</span>
-                                <span class="skill-tag">Team Collaboration</span>
-                            </div>
+                        <p class="job-description">
+                            Leading point-of-sale operations and customer service excellence in a fast-paced retail environment.
+                        </p>
+                        <ul class="job-achievements">
+                            <li>Efficiently manage and operate advanced POS systems</li>
+                            <li>Deliver exceptional customer service during high-volume transactions</li>
+                            <li>Maintain accurate transaction records and inventory documentation</li>
+                            <li>Collaborate effectively across departments for operational efficiency</li>
+                        </ul>
+                        <div class="job-skills">
+                            <span class="skill-tag">POS Systems</span>
+                            <span class="skill-tag">Customer Service</span>
+                            <span class="skill-tag">Data Management</span>
+                            <span class="skill-tag">Team Collaboration</span>
                         </div>
                     </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-marker">
-                            <div class="marker-content">
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content glass-morphism">
+                        <div class="job-header">
+                            <div class="company-logo">
                                 <i class="fas fa-desktop"></i>
                             </div>
+                            <div class="job-info">
+                                <h3>Software & OS Installation Specialist</h3>
+                                <h4>Orange Computer Sales & Service</h4>
+                                <span class="job-period">2022 - 2024</span>
+                                <span class="job-type">Full-time</span>
+                            </div>
                         </div>
-                        <div class="timeline-content">
-                            <div class="content-header">
-                                <span class="timeline-date">2022 - 2024</span>
-                            </div>
-                            <h3>Software and OS Installation Specialist</h3>
-                            <h4>Orange Computer Sales & Service</h4>
-                            <p class="role-description">
-                                Specialized in operating system installations, technical support, and customer satisfaction in computer services.
-                            </p>
-                            <ul class="achievements">
-                                <li>
-                                    <i class="fas fa-check-circle"></i>
-                                    Successfully installed and configured various operating systems
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle"></i>
-                                    Provided comprehensive technical support and troubleshooting
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle"></i>
-                                    Maintained detailed documentation of all installations and services
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle"></i>
-                                    Achieved high customer satisfaction through quality service delivery
-                                </li>
-                            </ul>
-                            <div class="skills-used">
-                                <span class="skill-tag">Windows/Linux</span>
-                                <span class="skill-tag">Technical Support</span>
-                                <span class="skill-tag">System Configuration</span>
-                                <span class="skill-tag">Documentation</span>
-                            </div>
+                        <p class="job-description">
+                            Specialized in operating system installations, technical support, and customer satisfaction in computer services.
+                        </p>
+                        <ul class="job-achievements">
+                            <li>Successfully installed and configured various operating systems</li>
+                            <li>Provided comprehensive technical support and troubleshooting</li>
+                            <li>Maintained detailed documentation of all installations and services</li>
+                            <li>Achieved high customer satisfaction through quality service delivery</li>
+                        </ul>
+                        <div class="job-skills">
+                            <span class="skill-tag">Windows/Linux</span>
+                            <span class="skill-tag">Technical Support</span>
+                            <span class="skill-tag">System Configuration</span>
+                            <span class="skill-tag">Documentation</span>
                         </div>
                     </div>
                 </div>
@@ -368,168 +431,170 @@
     <section id="skills" class="skills">
         <div class="container">
             <div class="section-header">
-                <span class="section-subtitle">What I'm good at</span>
-                <h2 class="section-title">Skills & Technologies</h2>
+                <div class="section-number">03</div>
+                <div class="section-content">
+                    <span class="section-subtitle">What I'm good at</span>
+                    <h2 class="section-title">Skills & Technologies</h2>
+                </div>
             </div>
-            <div class="skills-content">
-                <div class="skills-categories">
-                    <div class="skill-category">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <h3>Technical Skills</h3>
+
+            <div class="skills-grid">
+                <div class="skill-category glass-morphism">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-code"></i>
                         </div>
-                        <div class="skills-list">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Microsoft Office Suite</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="95"></div>
-                                </div>
+                        <h3>Technical Skills</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Microsoft Office Suite</span>
+                                <span class="skill-level">Expert</span>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Windows/Linux OS Installation</span>
-                                    <span class="skill-level">Advanced</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="90"></div>
-                                </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="95"></div>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">System Configuration & Maintenance</span>
-                                    <span class="skill-level">Advanced</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="85"></div>
-                                </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Windows/Linux OS</span>
+                                <span class="skill-level">Advanced</span>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">POS Systems Management</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="92"></div>
-                                </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">System Configuration</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">POS Systems</span>
+                                <span class="skill-level">Expert</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="92"></div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="skill-category">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-cloud"></i>
-                            </div>
-                            <h3>Cloud Technologies</h3>
+                </div>
+
+                <div class="skill-category glass-morphism">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-cloud"></i>
                         </div>
-                        <div class="skills-list">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Microsoft Azure</span>
-                                    <span class="skill-level">Intermediate</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="75"></div>
-                                </div>
+                        <h3>Cloud Technologies</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Microsoft Azure</span>
+                                <span class="skill-level">Intermediate</span>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">AWS Fundamentals</span>
-                                    <span class="skill-level">Intermediate</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="70"></div>
-                                </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="75"></div>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Cloud Virtualization</span>
-                                    <span class="skill-level">Intermediate</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="80"></div>
-                                </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">AWS Fundamentals</span>
+                                <span class="skill-level">Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="70"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Cloud Virtualization</span>
+                                <span class="skill-level">Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="80"></div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="skill-category">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-palette"></i>
-                            </div>
-                            <h3>Design & Tools</h3>
+                </div>
+
+                <div class="skill-category glass-morphism">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-shield-alt"></i>
                         </div>
-                        <div class="skills-list">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Canva Design</span>
-                                    <span class="skill-level">Advanced</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="88"></div>
-                                </div>
+                        <h3>Security & Analysis</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Information Security</span>
+                                <span class="skill-level">Certified</span>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">AI Tools Integration</span>
-                                    <span class="skill-level">Intermediate</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="75"></div>
-                                </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="82"></div>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Documentation</span>
-                                    <span class="skill-level">Expert</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="93"></div>
-                                </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Cyber Security</span>
+                                <span class="skill-level">Certified</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="78"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Wireshark Analysis</span>
+                                <span class="skill-level">Certified</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="skill-category">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h3>Security & Analysis</h3>
+                </div>
+
+                <div class="skill-category glass-morphism">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-palette"></i>
                         </div>
-                        <div class="skills-list">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Information Security</span>
-                                    <span class="skill-level">Certified</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="82"></div>
-                                </div>
+                        <h3>Design & Tools</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Canva Design</span>
+                                <span class="skill-level">Advanced</span>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Cyber Security</span>
-                                    <span class="skill-level">Certified</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="78"></div>
-                                </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="88"></div>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Wireshark Analysis</span>
-                                    <span class="skill-level">Certified</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="85"></div>
-                                </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">AI Tools Integration</span>
+                                <span class="skill-level">Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="75"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Documentation</span>
+                                <span class="skill-level">Expert</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="93"></div>
                             </div>
                         </div>
                     </div>
@@ -542,73 +607,63 @@
     <section id="education" class="education">
         <div class="container">
             <div class="section-header">
-                <span class="section-subtitle">Academic background</span>
-                <h2 class="section-title">Education</h2>
+                <div class="section-number">04</div>
+                <div class="section-content">
+                    <span class="section-subtitle">Academic background</span>
+                    <h2 class="section-title">Education</h2>
+                </div>
             </div>
-            <div class="education-content">
-                <div class="education-timeline">
-                    <div class="education-item current">
-                        <div class="education-marker">
-                            <i class="fas fa-university"></i>
+
+            <div class="education-timeline">
+                <div class="education-item current glass-morphism">
+                    <div class="education-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="education-content">
+                        <div class="education-header">
+                            <span class="education-status">Currently Pursuing</span>
+                            <span class="education-period">2023 - 2026</span>
                         </div>
-                        <div class="education-content-card">
-                            <div class="education-header">
-                                <div class="education-status">Currently Pursuing</div>
-                                <span class="education-period">2023 - 2026</span>
-                            </div>
-                            <h3>B.Sc Computer Science with Cognitive Systems</h3>
-                            <h4>DR. N. G. P. ARTS AND SCIENCE COLLEGE</h4>
-                            <div class="education-details">
-                                <div class="detail-item">
-                                    <i class="fas fa-chart-line"></i>
-                                    <span>CGPA: 6.7</span>
-                                </div>
-                                <div class="detail-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Coimbatore, Tamil Nadu</span>
-                                </div>
-                            </div>
-                            <div class="education-highlights">
-                                <h5>Key Areas of Study:</h5>
-                                <div class="highlight-tags">
-                                    <span class="tag">Computer Science Fundamentals</span>
-                                    <span class="tag">Cognitive System Design</span>
-                                    <span class="tag">Software Engineering</span>
-                                    <span class="tag">Data Structures & Algorithms</span>
-                                </div>
+                        <h3>B.Sc Computer Science with Cognitive Systems</h3>
+                        <h4>DR. N. G. P. ARTS AND SCIENCE COLLEGE</h4>
+                        <div class="education-details">
+                            <span>CGPA: 6.7</span>
+                            <span>Coimbatore, Tamil Nadu</span>
+                        </div>
+                        <div class="education-highlights">
+                            <h5>Key Areas of Study:</h5>
+                            <div class="highlight-tags">
+                                <span class="tag">Computer Science Fundamentals</span>
+                                <span class="tag">Cognitive System Design</span>
+                                <span class="tag">Software Engineering</span>
+                                <span class="tag">Data Structures & Algorithms</span>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="education-item">
-                        <div class="education-marker">
-                            <i class="fas fa-school"></i>
+                </div>
+
+                <div class="education-item glass-morphism">
+                    <div class="education-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div class="education-content">
+                        <div class="education-header">
+                            <span class="education-status completed">Completed</span>
+                            <span class="education-period">2022 - 2023</span>
                         </div>
-                        <div class="education-content-card">
-                            <div class="education-header">
-                                <div class="education-status completed">Completed</div>
-                                <span class="education-period">2022 - 2023</span>
-                            </div>
-                            <h3>Higher Secondary Certificate (HSC)</h3>
-                            <h4>N.G.R.A. HR.SEC.SCHOOL</h4>
-                            <div class="education-details">
-                                <div class="detail-item">
-                                    <i class="fas fa-percentage"></i>
-                                    <span>54% - Computer Science Stream</span>
-                                </div>
-                                <div class="detail-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Tamil Nadu</span>
-                                </div>
-                            </div>
-                            <div class="education-highlights">
-                                <h5>Foundation Subjects:</h5>
-                                <div class="highlight-tags">
-                                    <span class="tag">Computer Science</span>
-                                    <span class="tag">Mathematics</span>
-                                    <span class="tag">Physics</span>
-                                    <span class="tag">Chemistry</span>
-                                </div>
+                        <h3>Higher Secondary Certificate (HSC)</h3>
+                        <h4>N.G.R.A. HR.SEC.SCHOOL</h4>
+                        <div class="education-details">
+                            <span>54% - Computer Science Stream</span>
+                            <span>Tamil Nadu</span>
+                        </div>
+                        <div class="education-highlights">
+                            <h5>Foundation Subjects:</h5>
+                            <div class="highlight-tags">
+                                <span class="tag">Computer Science</span>
+                                <span class="tag">Mathematics</span>
+                                <span class="tag">Physics</span>
+                                <span class="tag">Chemistry</span>
                             </div>
                         </div>
                     </div>
@@ -621,123 +676,113 @@
     <section id="certifications" class="certifications">
         <div class="container">
             <div class="section-header">
-                <span class="section-subtitle">Professional credentials</span>
-                <h2 class="section-title">Certifications & Achievements</h2>
+                <div class="section-number">05</div>
+                <div class="section-content">
+                    <span class="section-subtitle">Professional credentials</span>
+                    <h2 class="section-title">Certifications</h2>
+                </div>
             </div>
-            <div class="certifications-content">
-                <div class="certifications-grid">
-                    <div class="cert-card featured">
-                        <div class="cert-badge">
-                            <i class="fas fa-star"></i>
-                            <span>Featured</span>
-                        </div>
-                        <div class="cert-icon">
-                            <i class="fas fa-book-open"></i>
-                        </div>
-                        <div class="cert-content">
-                            <h3>Published Research Chapter</h3>
-                            <p class="cert-issuer">Academic Publication</p>
-                            <p class="cert-description">
-                                Contributed to academic literature with a published chapter on 
-                                "Cloud and Virtualization Technologies" - demonstrating research 
-                                capabilities and deep understanding of cloud infrastructure.
-                            </p>
-                            <div class="cert-tags">
-                                <span class="cert-tag">Research</span>
-                                <span class="cert-tag">Cloud Computing</span>
-                                <span class="cert-tag">Academic Writing</span>
-                            </div>
-                        </div>
+
+            <div class="certifications-grid">
+                <div class="cert-card featured glass-morphism">
+                    <div class="cert-badge">
+                        <i class="fas fa-star"></i>
+                        <span>Featured</span>
                     </div>
-                    
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-cloud"></i>
-                        </div>
-                        <div class="cert-content">
-                            <h3>Cloud & Virtualization</h3>
-                            <p class="cert-issuer">Infosys Springboard</p>
-                            <p class="cert-description">
-                                Comprehensive certification covering cloud architecture, 
-                                virtualization technologies, and modern cloud deployment strategies.
-                            </p>
-                            <div class="cert-tags">
-                                <span class="cert-tag">Azure</span>
-                                <span class="cert-tag">Virtualization</span>
-                            </div>
-                        </div>
+                    <div class="cert-icon">
+                        <i class="fas fa-book-open"></i>
                     </div>
-                    
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="cert-content">
-                            <h3>Operational Research</h3>
-                            <p class="cert-issuer">Infosys Springboard</p>
-                            <p class="cert-description">
-                                Advanced training in operational research methodologies, 
-                                optimization techniques, and data-driven decision making.
-                            </p>
-                            <div class="cert-tags">
-                                <span class="cert-tag">Analytics</span>
-                                <span class="cert-tag">Optimization</span>
-                            </div>
-                        </div>
+                    <h3>Published Research Chapter</h3>
+                    <p class="cert-issuer">Academic Publication</p>
+                    <p class="cert-description">
+                        Contributed to academic literature with a published chapter on 
+                        "Cloud and Virtualization Technologies" - demonstrating research 
+                        capabilities and deep understanding of cloud infrastructure.
+                    </p>
+                    <div class="cert-tags">
+                        <span class="cert-tag">Research</span>
+                        <span class="cert-tag">Cloud Computing</span>
+                        <span class="cert-tag">Academic Writing</span>
                     </div>
-                    
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="cert-content">
-                            <h3>Information Security</h3>
-                            <p class="cert-issuer">Infosys Springboard</p>
-                            <p class="cert-description">
-                                Comprehensive coverage of information security principles, 
-                                risk management, and security best practices.
-                            </p>
-                            <div class="cert-tags">
-                                <span class="cert-tag">Security</span>
-                                <span class="cert-tag">Risk Management</span>
-                            </div>
-                        </div>
+                </div>
+
+                <div class="cert-card glass-morphism">
+                    <div class="cert-icon">
+                        <i class="fas fa-cloud"></i>
                     </div>
-                    
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="cert-content">
-                            <h3>Cyber Security</h3>
-                            <p class="cert-issuer">Infosys Springboard</p>
-                            <p class="cert-description">
-                                Advanced cybersecurity training covering threat detection, 
-                                incident response, and security architecture design.
-                            </p>
-                            <div class="cert-tags">
-                                <span class="cert-tag">Cybersecurity</span>
-                                <span class="cert-tag">Threat Analysis</span>
-                            </div>
-                        </div>
+                    <h3>Cloud & Virtualization</h3>
+                    <p class="cert-issuer">Infosys Springboard</p>
+                    <p class="cert-description">
+                        Comprehensive certification covering cloud architecture, 
+                        virtualization technologies, and modern cloud deployment strategies.
+                    </p>
+                    <div class="cert-tags">
+                        <span class="cert-tag">Azure</span>
+                        <span class="cert-tag">Virtualization</span>
                     </div>
-                    
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <div class="cert-content">
-                            <h3>Threat Analysis using Wireshark</h3>
-                            <p class="cert-issuer">PROMPT Infotech</p>
-                            <p class="cert-description">
-                                Specialized training in network traffic analysis, 
-                                threat detection, and security monitoring using Wireshark.
-                            </p>
-                            <div class="cert-tags">
-                                <span class="cert-tag">Network Analysis</span>
-                                <span class="cert-tag">Wireshark</span>
-                            </div>
-                        </div>
+                </div>
+
+                <div class="cert-card glass-morphism">
+                    <div class="cert-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Operational Research</h3>
+                    <p class="cert-issuer">Infosys Springboard</p>
+                    <p class="cert-description">
+                        Advanced training in operational research methodologies, 
+                        optimization techniques, and data-driven decision making.
+                    </p>
+                    <div class="cert-tags">
+                        <span class="cert-tag">Analytics</span>
+                        <span class="cert-tag">Optimization</span>
+                    </div>
+                </div>
+
+                <div class="cert-card glass-morphism">
+                    <div class="cert-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Information Security</h3>
+                    <p class="cert-issuer">Infosys Springboard</p>
+                    <p class="cert-description">
+                        Comprehensive coverage of information security principles, 
+                        risk management, and security best practices.
+                    </p>
+                    <div class="cert-tags">
+                        <span class="cert-tag">Security</span>
+                        <span class="cert-tag">Risk Management</span>
+                    </div>
+                </div>
+
+                <div class="cert-card glass-morphism">
+                    <div class="cert-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Cyber Security</h3>
+                    <p class="cert-issuer">Infosys Springboard</p>
+                    <p class="cert-description">
+                        Advanced cybersecurity training covering threat detection, 
+                        incident response, and security architecture design.
+                    </p>
+                    <div class="cert-tags">
+                        <span class="cert-tag">Cybersecurity</span>
+                        <span class="cert-tag">Threat Analysis</span>
+                    </div>
+                </div>
+
+                <div class="cert-card glass-morphism">
+                    <div class="cert-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Threat Analysis using Wireshark</h3>
+                    <p class="cert-issuer">PROMPT Infotech</p>
+                    <p class="cert-description">
+                        Specialized training in network traffic analysis, 
+                        threat detection, and security monitoring using Wireshark.
+                    </p>
+                    <div class="cert-tags">
+                        <span class="cert-tag">Network Analysis</span>
+                        <span class="cert-tag">Wireshark</span>
                     </div>
                 </div>
             </div>
@@ -748,21 +793,25 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header">
-                <span class="section-subtitle">Let's work together</span>
-                <h2 class="section-title">Get In Touch</h2>
+                <div class="section-number">06</div>
+                <div class="section-content">
+                    <span class="section-subtitle">Let's work together</span>
+                    <h2 class="section-title">Get In Touch</h2>
+                </div>
             </div>
-            <div class="contact-content">
+
+            <div class="contact-grid">
                 <div class="contact-info">
-                    <div class="contact-intro">
-                        <h3>Ready to Start a Conversation?</h3>
+                    <div class="contact-intro glass-morphism">
+                        <h3>Ready to Start Something Amazing?</h3>
                         <p>
-                            I'm always excited to discuss new opportunities, projects, or just have a 
-                            friendly chat about technology. Feel free to reach out through any of these channels.
+                            I'm always excited to discuss new opportunities, collaborate on projects, 
+                            or just have a chat about the latest in technology. Let's connect!
                         </p>
                     </div>
-                    
+
                     <div class="contact-methods">
-                        <div class="contact-method">
+                        <div class="contact-method glass-morphism">
                             <div class="method-icon">
                                 <i class="fas fa-phone"></i>
                             </div>
@@ -772,8 +821,8 @@
                                 <a href="tel:+919789223360" class="method-link">Call Now</a>
                             </div>
                         </div>
-                        
-                        <div class="contact-method">
+
+                        <div class="contact-method glass-morphism">
                             <div class="method-icon">
                                 <i class="fas fa-envelope"></i>
                             </div>
@@ -783,132 +832,119 @@
                                 <a href="mailto:mbarath2121@gmail.com" class="method-link">Send Email</a>
                             </div>
                         </div>
-                        
-                        <div class="contact-method">
+
+                        <div class="contact-method glass-morphism">
                             <div class="method-icon">
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="method-content">
                                 <h4>Location</h4>
                                 <p>Vellalore, Coimbatore - 641111</p>
-                                <p class="location-detail">Tamil Nadu, India</p>
+                                <small>Tamil Nadu, India</small>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="social-connect">
-                        <h4>Connect on Social Media</h4>
-                        <div class="social-links-contact">
-                            <a href="https://www.linkedin.com/in/barath-m-7044502a3" target="_blank" class="social-btn linkedin">
+                        <h4>Social Media</h4>
+                        <div class="social-buttons">
+                            <a href="https://www.linkedin.com/in/barath-m-7044502a3" target="_blank" class="social-btn linkedin glass-morphism">
                                 <i class="fab fa-linkedin-in"></i>
                                 <span>LinkedIn</span>
                             </a>
-                            <a href="https://www.instagram.com/2121bara" target="_blank" class="social-btn instagram">
+                            <a href="https://www.instagram.com/2121bara" target="_blank" class="social-btn instagram glass-morphism">
                                 <i class="fab fa-instagram"></i>
                                 <span>Instagram</span>
                             </a>
-                            <a href="https://github.com/barath2121" target="_blank" class="social-btn github">
+                            <a href="https://github.com/barath2121" target="_blank" class="social-btn github glass-morphism">
                                 <i class="fab fa-github"></i>
                                 <span>GitHub</span>
                             </a>
                         </div>
                     </div>
-                    
-                    <div class="qr-section">
-                        <h4>Quick Connect via QR</h4>
-                        <div class="qr-codes-contact">
-                            <div class="qr-item">
-                                <img src="qr-contact.jpg" alt="Contact Information QR Code">
-                                <p>Contact Info</p>
+                </div>
+
+                <div class="contact-form-container">
+                    <form id="contactForm" class="contact-form glass-morphism">
+                        <div class="form-header">
+                            <h3>Send me a message</h3>
+                            <p>Have a project in mind? Let's discuss!</p>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                                <div class="input-focus-line"></div>
                             </div>
-                            <div class="qr-item">
-                                <img src="qr-resume.jpg" alt="Resume QR Code">
-                                <p>Download Resume</p>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                                <div class="input-focus-line"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form-section">
-                    <div class="form-container">
-                        <h3>Send me a message</h3>
-                        <p class="form-description">
-                            Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
-                        </p>
-                        
-                        <form id="contactForm" class="contact-form">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="firstName">First Name</label>
-                                    <input type="text" id="firstName" name="firstName" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="lastName">Last Name</label>
-                                    <input type="text" id="lastName" name="lastName" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <select id="subject" name="subject" required>
-                                    <option value="">Select a subject</option>
-                                    <option value="job-opportunity">Job Opportunity</option>
-                                    <option value="project-collaboration">Project Collaboration</option>
-                                    <option value="technical-consultation">Technical Consultation</option>
-                                    <option value="general-inquiry">General Inquiry</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or inquiry..." required></textarea>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary submit-btn">
-                                <span class="btn-text">Send Message</span>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                            <div class="input-focus-line"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="job-opportunity">Job Opportunity</option>
+                                <option value="project-collaboration">Project Collaboration</option>
+                                <option value="technical-consultation">Technical Consultation</option>
+                                <option value="general-inquiry">General Inquiry</option>
+                            </select>
+                            <div class="input-focus-line"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                            <div class="input-focus-line"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-submit btn-3d">
+                            <span class="btn-text">Send Message</span>
+                            <div class="btn-icon">
                                 <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </form>
-                    </div>
+                            </div>
+                            <div class="btn-particles"></div>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer glass-morphism">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-main">
                     <div class="footer-brand">
-                        <h3>BARATH<span class="accent">.</span></h3>
-                        <p>Computer Science Professional passionate about technology and innovation.</p>
+                        <h3 class="logo-3d">BARATH<span class="accent">.</span></h3>
+                        <p>Computer Science Professional passionate about innovation and technology.</p>
                         <div class="footer-social">
-                            <a href="https://www.linkedin.com/in/barath-m-7044502a3" target="_blank">
+                            <a href="https://www.linkedin.com/in/barath-m-7044502a3" target="_blank" class="social-icon glass-morphism">
                                 <i class="fab fa-linkedin-in"></i>
                             </a>
-                            <a href="https://www.instagram.com/2121bara" target="_blank">
+                            <a href="https://www.instagram.com/2121bara" target="_blank" class="social-icon glass-morphism">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="https://github.com/barath2121" target="_blank">
+                            <a href="https://github.com/barath2121" target="_blank" class="social-icon glass-morphism">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <a href="mailto:mbarath2121@gmail.com">
+                            <a href="mailto:mbarath2121@gmail.com" class="social-icon glass-morphism">
                                 <i class="fas fa-envelope"></i>
                             </a>
                         </div>
                     </div>
-                    
+
                     <div class="footer-links">
                         <div class="footer-column">
                             <h4>Navigation</h4>
@@ -919,19 +955,19 @@
                                 <li><a href="#skills">Skills</a></li>
                             </ul>
                         </div>
-                        
+
                         <div class="footer-column">
                             <h4>More</h4>
                             <ul>
                                 <li><a href="#education">Education</a></li>
                                 <li><a href="#certifications">Certifications</a></li>
                                 <li><a href="#contact">Contact</a></li>
-                                <li><a href="resume.pdf" download>Resume</a></li>
+                                <li><a href="#" id="footerDownloadCV">Resume</a></li>
                             </ul>
                         </div>
-                        
+
                         <div class="footer-column">
-                            <h4>Contact Info</h4>
+                            <h4>Contact</h4>
                             <ul>
                                 <li>Coimbatore, Tamil Nadu</li>
                                 <li>+91 9789223360</li>
@@ -940,7 +976,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="footer-bottom">
                     <div class="copyright">
                         <p>&copy; 2025 Barath M. All rights reserved.</p>
@@ -954,7 +990,7 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <button id="backToTop" class="back-to-top">
+    <button id="backToTop" class="back-to-top glass-morphism">
         <i class="fas fa-arrow-up"></i>
     </button>
 
